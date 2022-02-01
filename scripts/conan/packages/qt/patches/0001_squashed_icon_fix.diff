@@ -1,0 +1,12 @@
+diff --git a/src/plugins/platforms/cocoa/qcocoasystemtrayicon.mm b/src/plugins/platforms/cocoa/qcocoasystemtrayicon.mm
+index a975f2d..147a882 100644
+--- a/src/plugins/platforms/cocoa/qcocoasystemtrayicon.mm
++++ b/src/plugins/platforms/cocoa/qcocoasystemtrayicon.mm
+@@ -203,6 +203,7 @@
+         r.moveCenter(fullHeightPixmap.rect().center());
+         p.drawPixmap(r, pixmap);
+     }
++    fullHeightPixmap.setDevicePixelRatio(devicePixelRatio);
+ 
+     auto *nsimage = [NSImage imageFromQImage:fullHeightPixmap.toImage()];
+     [nsimage setTemplate:icon.isMask()];
