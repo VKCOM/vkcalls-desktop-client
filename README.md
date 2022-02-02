@@ -7,6 +7,5 @@
 
 ### Qt
 ```
-cd scripts/conan/packages/qt/
-nano README.md
+${VKCALLS_REPOSITORY_ROOT}/scripts/conan/packages/qt/README.md
 ```
