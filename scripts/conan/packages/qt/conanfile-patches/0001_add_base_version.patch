@@ -1,0 +1,12 @@
+--- conanfile.py	2021-12-24 15:32:53.000000000 +0300
++++ conanfile.py	2021-12-24 15:35:37.000000000 +0300
+@@ -378,7 +378,8 @@
+ 
+     def source(self):
+         tools.get(**self.conan_data["sources"][self.version])
+-        shutil.move("qt-everywhere-src-%s" % self.version, "qt5")
++        base_version = self.version.split('-')[0]
++        shutil.move("qt-everywhere-src-%s" % base_version, "qt5")
+ 
+         for patch in self.conan_data.get("patches", {}).get(self.version, []):
+             tools.patch(**patch)
