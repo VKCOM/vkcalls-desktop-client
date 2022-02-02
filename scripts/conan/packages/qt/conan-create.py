@@ -130,8 +130,6 @@ def copyFilesFromFolder(fromDir, toDir):
         os.mkdir(toDir)
     for fileName in os.listdir(fromDir):
         fromFile = os.path.join(fromDir, fileName)
-        if fileName in [".", ".."]:
-            continue
 
         toFile = os.path.join(toDir, fileName)
         if os.path.isfile(fromFile):
@@ -155,9 +153,11 @@ def patchConanFile(buildDir, customDir):
     # patch is applied to a file in current working directory
     os.chdir(buildDir)
 
-    patchFilePath = os.path.join(customDir, "conanfile.patch")
-    patchSet = patch.fromfile(patchFilePath)
-    patchSet.apply()
+    patchesDir = os.path.join(customDir, "conanfile-patches")
+    for patchFileName in sorted(os.listdir(patchesDir)):
+        print("Applying conanfile patch: {patch}".format(patch=patchFileName))
+        patchSet = patch.fromfile(os.path.join(patchesDir, patchFileName));
+        patchSet.apply()
 
 
 def addCustomPatches(buildDir, customDir):
@@ -166,7 +166,6 @@ def addCustomPatches(buildDir, customDir):
     originalYmlPath = os.path.join(buildDir, "conandata.yml")
     customYmlPath = os.path.join(customDir, "custom-versions.yml")
     addCustomVersions(originalYmlPath, customYmlPath)
-    patchConanFile(buildDir, customDir)
 
 
 def configByVersion(version):
@@ -213,5 +212,6 @@ if __name__ == "__main__":
     downloadConanRecipe(baseVersion, remote)
     copyConanRecipeTo(baseVersion, "vkcalls/stable")
     createBuildDir(buildDir, baseVersion)
+    patchConanFile(buildDir, customDir)
     addCustomPatches(buildDir, customDir)
     conanCreate(buildDir, version, profile)
