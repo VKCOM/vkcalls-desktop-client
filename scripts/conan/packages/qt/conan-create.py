@@ -60,7 +60,7 @@ class Defaults:
 
     @staticmethod
     def profile():
-        return "macos-clang12-debug"
+        return "default"
 
     @staticmethod
     def buildDir():

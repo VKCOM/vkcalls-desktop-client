@@ -1,8 +1,12 @@
 ## Как собрать Qt с нашими патчами
 
-В данной инструкции исплоьзуются следующие инструменты:
-[Python 3](python.org)
-[Conan package manager](conan.io)
+В данной инструкции используются следующие инструменты: \
+[Python 3](python.org) \
+[Conan package manager](conan.io) 
+
+Мы предполагаем, что Вы уже знакомы с основами Conan. \
+С документацией можно ознакомиться по ссылке: \
+[docs.conan.io](docs.conan.io)
 
 Для сборки мы используем рецепт и исходники Qt 5.15.2 из репозитория center.conan.io. \
 На исходники накладываются патчи из каталога **patches**. \
@@ -20,6 +24,7 @@ cd ${VKCALLS_REPOSITORY_ROOT}/scripts/conan/packages/qt/
 
 ```
 python3 -m pip install conan
+conan config init
 ```
 
 #### 1.2 Добавить conancenter remote
@@ -55,7 +60,13 @@ python3 -m pip install -r requirements.txt
 python3 conan-create.py
 ```
 
-#### 1.4 Помощь
+#### 3 Собранную библиотеку можно найти тут:
+
+```
+${USER_HOME_DIR}/.conan/data/qt/5.15.2-p1/vkcalls/stable/package/
+```
+
+#### 4. Помощь
 
 ```
 python3 conan-create.py --help
