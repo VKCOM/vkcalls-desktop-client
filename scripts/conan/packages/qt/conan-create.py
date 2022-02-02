@@ -12,15 +12,18 @@ class NoAliasDumper(yaml.SafeDumper):
 
 
 def addCustomVersions(originalFilePath, customFilePath):
+    def getCustomDataPatches(version):
+        return customData['patches'][version] or []
+
     def getPatchesRecursively(version):
         if version in cache:
-            return cache[version]
+            return cache[version] or []
         if version in versionToBase:
-            patches = getPatchesRecursively(versionToBase[version]) + customData['patches'][version]
+            patches = getPatchesRecursively(versionToBase[version]) + getCustomDataPatches(version)
         else:
             patches = originalData['patches'][version]
-        cache[version] = patches
-        return patches
+        cache[version] = patches or []
+        return patches or []
 
     with open(originalFilePath) as originalFile:
         originalData = yaml.load(originalFile, Loader=yaml.FullLoader)
